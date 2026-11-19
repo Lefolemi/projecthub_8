@@ -8,7 +8,36 @@ const api = axios.create({
   },
 });
 
+// Automatically attach the Sanctum Bearer token if logged in
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('pf_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default {
+  // Authentication endpoints
+  register(data) {
+    return api.post('/register', data);
+  },
+  login(data) {
+    return api.post('/login', data);
+  },
+  getMe() {
+    return api.get('/me');
+  },
+  logout() {
+    return api.post('/logout');
+  },
+
+  // Admin-only endpoints
+  getAdminSummary() {
+    return api.get('/admin/summary');
+  },
+
+  // Task CRUD endpoints
   getTasks(params = {}) {
     return api.get('/tasks', { params });
   },

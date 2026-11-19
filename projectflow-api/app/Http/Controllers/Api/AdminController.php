@@ -21,6 +21,9 @@ class AdminController extends Controller
                     'done' => Task::where('status', 'done')->count(),
                 ],
             ],
+            'users' => User::select('id', 'name', 'email', 'role', 'created_at')
+                ->orderBy('created_at', 'desc')
+                ->get(),
         ]);
     }
 }
