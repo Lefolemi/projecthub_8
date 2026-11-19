@@ -14,6 +14,7 @@ class StoreTaskRequest extends FormRequest
     public function rules()
     {
         return [
+            'project_id' => ['nullable', 'integer', 'exists:projects,id'],
             'title' => ['required', 'string', 'max:150'],
             'description' => ['nullable', 'string'],
             'status' => ['required', 'in:todo,in_progress,done'],
@@ -26,6 +27,7 @@ class StoreTaskRequest extends FormRequest
     public function messages()
     {
         return [
+            'project_id.exists' => 'Selected project does not exist.',
             'title.required' => 'Task title is mandatory and cannot be empty.',
             'status.in' => 'Status must be one of: todo, in_progress, or done.',
             'priority.in' => 'Priority must be low, medium, or high.',

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\InvitationController;
+use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Projects & Team Invitations
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::post('/projects/{project}/invite', [ProjectController::class, 'invite']);
+
+    Route::get('/invitations', [InvitationController::class, 'index']);
+    Route::post('/invitations/{invitation}/accept', [InvitationController::class, 'accept']);
+    Route::post('/invitations/{invitation}/decline', [InvitationController::class, 'decline']);
 
     // Member & Admin task routes (view, create, update)
     Route::apiResource('tasks', TaskController::class)->except(['destroy']);

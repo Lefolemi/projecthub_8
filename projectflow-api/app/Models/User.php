@@ -42,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+
+    public function receivedInvitations()
+    {
+        return $this->hasMany(ProjectInvitation::class, 'invitee_id');
+    }
 }

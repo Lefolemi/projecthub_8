@@ -4,6 +4,7 @@ import { useAuth } from '../composables/useAuth';
 import LoginView from '../views/LoginView.vue';
 import DashboardLayout from '../layouts/DashboardLayout.vue';
 import DashboardView from '../views/DashboardView.vue';
+import ProjectsView from '../views/ProjectsView.vue';
 import TasksView from '../views/TasksView.vue';
 import ScheduleView from '../views/ScheduleView.vue';
 import ReportsView from '../views/ReportsView.vue';
@@ -28,6 +29,12 @@ const routes = [
         name: 'dashboard',
         component: DashboardView,
         meta: { title: 'Dashboard', subtitle: 'Overview of your project momentum & deadlines' },
+      },
+      {
+        path: 'projects',
+        name: 'projects',
+        component: ProjectsView,
+        meta: { title: 'Projects & Invites', subtitle: 'Create projects, manage team members & send email invitations' },
       },
       {
         path: 'tasks',

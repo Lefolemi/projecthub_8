@@ -15,7 +15,10 @@ class TaskController extends Controller
     {
         $query = Task::latest();
 
-        // Challenge A: Filter by status or priority
+        if ($request->filled('project_id')) {
+            $query->where('project_id', (int) $request->input('project_id'));
+        }
+
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -24,8 +27,17 @@ class TaskController extends Controller
             $query->where('priority', $request->priority);
         }
 
-        // Challenge B: Paginated collection
-        return TaskResource::collection($query->paginate(10));
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $perPage = min((int) $request->input('per_page', 10), 100);
+
+        return TaskResource::collection($query->paginate($perPage));
     }
 
     public function store(StoreTaskRequest $request)

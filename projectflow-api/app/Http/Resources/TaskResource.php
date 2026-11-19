@@ -10,6 +10,8 @@ class TaskResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'project_id' => $this->project_id,
+            'user_id' => $this->user_id,
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
@@ -17,6 +19,7 @@ class TaskResource extends JsonResource
             'due_date' => $this->due_date,
             'estimated_hours' => (float) $this->estimated_hours,
             'created_at' => $this->created_at ? $this->created_at->toISOString() : null,
+            'updated_at' => $this->updated_at ? $this->updated_at->toISOString() : null,
         ];
     }
 }

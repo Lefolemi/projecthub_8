@@ -14,6 +14,7 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
+            'project_id' => ['sometimes', 'nullable', 'integer', 'exists:projects,id'],
             'title' => ['sometimes', 'required', 'string', 'max:150'],
             'description' => ['sometimes', 'nullable', 'string'],
             'status' => ['sometimes', 'required', 'in:todo,in_progress,done'],

@@ -32,6 +32,29 @@ export default {
     return api.post('/logout');
   },
 
+  // Projects & Team Invitations
+  getProjects() {
+    return api.get('/projects');
+  },
+  createProject(data) {
+    return api.post('/projects', data);
+  },
+  getProject(id) {
+    return api.get(`/projects/${id}`);
+  },
+  inviteToProject(projectId, email) {
+    return api.post(`/projects/${projectId}/invite`, { email });
+  },
+  getInvitations() {
+    return api.get('/invitations');
+  },
+  acceptInvitation(id) {
+    return api.post(`/invitations/${id}/accept`);
+  },
+  declineInvitation(id) {
+    return api.post(`/invitations/${id}/decline`);
+  },
+
   // Admin-only endpoints
   getAdminSummary() {
     return api.get('/admin/summary');
